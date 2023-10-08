@@ -4,8 +4,6 @@ import type {NextRequest} from 'next/server'
 const allowedOrigins = [
     'http://localhost:3000',
     'http://localhost:3001',
-    'http://localhost:3002',
-    'http://localhost:3003',
     'https://mazainulhasan1.sch.id',
     'https://www.mazainulhasan1.sch.id',
     'https://web-ma-nextjs.vercel.app',
