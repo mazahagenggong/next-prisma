@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  username    String    @unique
+  email       String    @unique
+  nama        String
+  password    String
+  gambar      String?
+  role        String
+  created_at  DateTime  @default(now())
+  upodated_at DateTime?
+}
+
+model guru_and_staffs {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  nama         String
+  alamat       String?
+  jenis        String
+  jabatan      String?
+  bidang_studi String?
+  no_hp        String?
+  profile      Json?
+  created_at   DateTime  @default(now())
+  upodated_at  DateTime?
+}
+
+model posts {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  judul       String
+  slug        String
+  excerpt     String
+  body        String
+  kategori    String
+  author      String
+  gambar      String?
+  komentar    Json?
+  created_at  DateTime  @default(now())
+  upodated_at DateTime?
+}
+
+model kategoris {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  nama        String
+  created_at  DateTime  @default(now())
+  upodated_at DateTime?
+}
