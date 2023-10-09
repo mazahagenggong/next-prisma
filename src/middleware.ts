@@ -13,14 +13,13 @@ export function middleware(nextRequest: NextRequest) {
     const res = NextResponse.next()
 
     const origin = nextRequest.headers.get('Origin')
-    console.log("origin : ",origin)
-    console.log("request : ",nextRequest.headers.get("user-agent"))
-    if (!origin) {
+    const ua = nextRequest.headers.get('user-agent')
+    if (!origin && ua !== "Next.js Middleware") {
         console.log(`no origin`);
         return NextResponse.json({ error: 'No Origin detect' }, { status: 403 })
     }
 
-    if (!allowedOrigins.includes(origin)) {
+    if (origin && !allowedOrigins.includes(origin)) {
         console.log(`origin not allowed : ${origin}`);
         return NextResponse.json({ error: 'Origin denied' }, { status: 403 })
     }
