@@ -15,12 +15,12 @@ export function middleware(nextRequest: NextRequest) {
     const origin = nextRequest.headers.get('Origin')
     if (!origin) {
         console.log(`no origin`);
-        return new NextResponse(null, { status: 200 })
+        return NextResponse.json({ error: 'No Origin detect' }, { status: 403 })
     }
 
     if (!allowedOrigins.includes(origin)) {
         console.log(`origin not allowed : ${origin}`);
-        return new NextResponse(null, { status: 200 })
+        return NextResponse.json({ error: 'Origin denied' }, { status: 403 })
     }
 
     if (nextRequest.method === 'OPTIONS') {
