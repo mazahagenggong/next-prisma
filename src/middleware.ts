@@ -14,7 +14,7 @@ export function middleware(nextRequest: NextRequest) {
 
     const origin = nextRequest.headers.get('Origin')
     console.log("origin : ",origin)
-    console.log("request : ",nextRequest.referrer)
+    console.log("request : ",nextRequest.headers.get("user-agent"))
     if (!origin) {
         console.log(`no origin`);
         return NextResponse.json({ error: 'No Origin detect' }, { status: 403 })
