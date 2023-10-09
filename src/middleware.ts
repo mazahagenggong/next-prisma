@@ -13,7 +13,8 @@ export function middleware(nextRequest: NextRequest) {
     const res = NextResponse.next()
 
     const origin = nextRequest.headers.get('Origin')
-    console.log(origin)
+    console.log("origin : ",origin)
+    console.log("headers : ",nextRequest.headers)
     if (!origin) {
         console.log(`no origin`);
         return NextResponse.json({ error: 'No Origin detect' }, { status: 403 })
