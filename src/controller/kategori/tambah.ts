@@ -1,4 +1,4 @@
-import {NextApiRequest, NextApiResponse} from "next";
+import {NextApiRequest} from "next";
 import {admin} from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
@@ -11,41 +11,31 @@ const tambah = async function (req: NextApiRequest) {
         }
     }
     let body = req.body;
-    if (!body.nama) {
+    if (!body) {
         return {
             status: 400,
             data: {
                 success: false,
-                message: 'nama tidak ada'
+                message: 'Data tidak boleh kosong',
             }
         }
     }
-    if (!body.jenis) {
+    const required = [
+        'nama',
+    ];
+    if (!required.every(key => Object.keys(body).includes(key))) {
         return {
             status: 400,
             data: {
                 success: false,
-                message: 'jenis tidak ada'
+                message: 'Data tidak lengkap',
             }
         }
     }
     body.created_at = new Date();
-    for (const key in body) {
-        if (body[key] === null || body[key] === "") {
-            delete body[key];
-        } else if (typeof body[key] === "object") {
-            for (const key2 in body[key]) {
-                if (body[key][key2] === null || body[key][key2] === "") {
-                    delete body[key][key2];
-                }
-            }
-            if (Object.keys(body[key]).length === 0) {
-                delete body[key];
-            }
-        }
-    }
+
     try {
-        const data = await prisma.guru_and_staffs.create({
+        const data = await prisma.kategoris.create({
             data: body
         });
         return {
@@ -56,15 +46,14 @@ const tambah = async function (req: NextApiRequest) {
                 data: data
             }
         }
-    } catch (e: any) {
+    } catch (err:any) {
         return {
             status: 500,
             data: {
                 success: false,
-                message: e.message
+                message: err
             }
         }
     }
 }
-
 export default tambah;

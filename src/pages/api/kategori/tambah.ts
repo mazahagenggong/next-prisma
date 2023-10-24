@@ -1,7 +1,7 @@
-import type {NextApiRequest, NextApiResponse} from 'next';
-import Cors from 'cors';
+import {NextApiRequest, NextApiResponse} from "next";
+import Cors from "cors";
 import runMiddleware from "@/lib/runMiddleware";
-import tambah from "@/controller/gs/tambah";
+import tambah from "@/controller/kategori/tambah";
 
 export default async function handler(
     req: NextApiRequest,

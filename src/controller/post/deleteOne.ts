@@ -13,12 +13,12 @@ const deleteOne = async function (req: NextApiRequest) {
     }
     const id = req.query.id as string;
     try {
-        const gs:any = await prisma.guru_and_staffs.findUnique({
+        const post:any = await prisma.posts.findUnique({
             where: {
                 id: id
             }
         });
-        if (!gs) {
+        if (!post) {
             return {
                 status: 404,
                 data: {
@@ -27,12 +27,12 @@ const deleteOne = async function (req: NextApiRequest) {
                 }
             }
         }
-        if (gs.profile.image && gs.profile.image !== process.env.DEFAULT_GS_IMAGE && gs.profile.image !== '' ) {
-            await cloudinary.uploader.destroy(gs.profile.image, {
+        if (post.gambar && post.gambar !== process.env.DEFAULT_POST_IMAGE && post.gambar !== '' ) {
+            await cloudinary.uploader.destroy(post.gambar, {
                 resource_type: 'image'
             });
         }
-        await prisma.guru_and_staffs.delete({
+        await prisma.posts.delete({
             where: {
                 id: id
             }

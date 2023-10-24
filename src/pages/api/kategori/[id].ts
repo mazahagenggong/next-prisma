@@ -1,24 +1,24 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import Cors from 'cors';
 import runMiddleware from "@/lib/runMiddleware";
-import tambah from "@/controller/gs/tambah";
+import deleteOne from "@/controller/kategori/deleteOne";
 
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
     const cors = Cors({
-        methods: ['POST'],
-    });
-    await runMiddleware(req, res, cors);
+        methods: ['DELETE'],
+    })
+    await runMiddleware(req, res, cors)
 
     switch (req.method) {
-        case "POST" :
-            const data = await tambah(req);
-            return res.status(data.status).json(data.data);
+        case "DELETE" :
+            const dd = await deleteOne(req);
+            return res.status(dd.status).json(dd.data);
         default:
             return res.status(404).json({
                 error: "halaman tidak ada"
-            });
+            })
     }
 }

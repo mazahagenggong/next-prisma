@@ -47,7 +47,7 @@ const editOne = async function (req: NextApiRequest) {
             }
         }
         if (body.profile.image) {
-            if (old_image !== 'website/gs/gpbe2jttvnhh1egbw6in') {
+            if (old_image !== process.env.DEFAULT_GS_IMAGE) {
                 await cloudinary.uploader.destroy(old_image, {
                     resource_type: 'image'
                 });

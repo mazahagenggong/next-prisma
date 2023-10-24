@@ -45,7 +45,7 @@ model posts {
   gambar      String?
   komentar    Json?
   created_at  DateTime  @default(now())
-  upodated_at DateTime?
+  updated_at  DateTime?
 }
 
 model kategoris {

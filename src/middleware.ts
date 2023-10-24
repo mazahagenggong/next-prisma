@@ -11,28 +11,29 @@ const allowedOrigins = [
 
 export function middleware(nextRequest: NextRequest) {
     const res = NextResponse.next()
+    if (nextRequest.nextUrl.pathname !== '/api/auth/detail') {
+        const origin = nextRequest.headers.get('Origin')
+        if (!origin) {
+            console.log(`Direct access is denied !!!`);
+            return NextResponse.json({error: 'No Origin detect'}, {status: 403})
+        }
 
-    const origin = nextRequest.headers.get('Origin')
-    const ua = nextRequest.headers.get('user-agent')
-    if (!origin && ua !== "Next.js Middleware") {
-        console.log(`no origin`);
-        return NextResponse.json({ error: 'No Origin detect' }, { status: 403 })
-    }
+        if (origin && !allowedOrigins.includes(origin)) {
+            console.log(`Your address is not allowed !!!`);
+            return NextResponse.json({error: 'Origin denied'}, {status: 403})
+        }
 
-    if (origin && !allowedOrigins.includes(origin)) {
-        console.log(`origin not allowed : ${origin}`);
-        return NextResponse.json({ error: 'Origin denied' }, { status: 403 })
-    }
-
-    if (nextRequest.method === 'OPTIONS') {
-        const optionsResponse = new NextResponse(null, { status: 200 })
-        optionsResponse.headers.append('Access-Control-Allow-Origin', "*")
-        optionsResponse.headers.append('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT')
-        optionsResponse.headers.append(
-            'Access-Control-Allow-Headers',
-            'Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-        )
-        return optionsResponse
+        if (nextRequest.method === 'OPTIONS') {
+            const optionsResponse = new NextResponse(null, {status: 200})
+            optionsResponse.headers.append('Access-Control-Allow-Origin', "*")
+            optionsResponse.headers.append('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT')
+            optionsResponse.headers.append(
+                'Access-Control-Allow-Headers',
+                'Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+            )
+            return optionsResponse
+        }
+        return res
     }
     return res
 }

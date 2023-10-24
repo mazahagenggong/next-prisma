@@ -1,10 +1,9 @@
 import {NextApiRequest} from "next";
-import {auth} from "@/lib/auth";
+import {admin} from "@/lib/auth";
 import prisma from "@/lib/prisma";
-import cloudinary from "@/lib/cloudinary";
 
 const deleteOne = async function (req: NextApiRequest) {
-    const cek = await auth(req);
+    const cek = await admin(req);
     if (!cek.data.success) {
         return {
             status: cek.status,
@@ -13,26 +12,21 @@ const deleteOne = async function (req: NextApiRequest) {
     }
     const id = req.query.id as string;
     try {
-        const gs:any = await prisma.guru_and_staffs.findUnique({
+        const kat:any = await prisma.kategoris.findUnique({
             where: {
                 id: id
             }
         });
-        if (!gs) {
+        if (!kat) {
             return {
                 status: 404,
                 data: {
                     success: false,
-                    message: 'guru atau staff tidak ditemukan'
+                    message: 'kategori tidak ditemukan'
                 }
             }
         }
-        if (gs.profile.image && gs.profile.image !== process.env.DEFAULT_GS_IMAGE && gs.profile.image !== '' ) {
-            await cloudinary.uploader.destroy(gs.profile.image, {
-                resource_type: 'image'
-            });
-        }
-        await prisma.guru_and_staffs.delete({
+        await prisma.kategoris.delete({
             where: {
                 id: id
             }
@@ -41,7 +35,7 @@ const deleteOne = async function (req: NextApiRequest) {
             status: 200,
             data: {
                 success: true,
-                message: 'Berhasil menghapus data',
+                message: 'Berhasil menghapus kategori',
             }
         }
     } catch (e) {

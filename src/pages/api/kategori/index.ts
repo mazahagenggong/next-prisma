@@ -1,7 +1,7 @@
-import type {NextApiRequest, NextApiResponse} from 'next';
-import Cors from 'cors';
+import {NextApiRequest, NextApiResponse} from "next";
+import Cors from "cors";
 import runMiddleware from "@/lib/runMiddleware";
-import tambah from "@/controller/gs/tambah";
+import alldata from "@/controller/kategori/table/alldata";
 
 export default async function handler(
     req: NextApiRequest,
@@ -14,7 +14,7 @@ export default async function handler(
 
     switch (req.method) {
         case "POST" :
-            const data = await tambah(req);
+            const data = await alldata(req);
             return res.status(data.status).json(data.data);
         default:
             return res.status(404).json({
