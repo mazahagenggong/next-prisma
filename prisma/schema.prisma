@@ -31,7 +31,7 @@ model guru_and_staffs {
   no_hp        String?
   profile      Json?
   created_at   DateTime  @default(now())
-  upodated_at  DateTime?
+  updated_at  DateTime?
 }
 
 model posts {

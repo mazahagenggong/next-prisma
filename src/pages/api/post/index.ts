@@ -1,8 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import Cors from 'cors';
 import runMiddleware from "@/lib/runMiddleware";
-import detail from "@/controller/auth/detail";
-
+import alldata from "@/controller/post/table/alldata";
 
 export default async function handler(
     req: NextApiRequest,
@@ -15,7 +14,7 @@ export default async function handler(
 
     switch (req.method) {
         case "POST" :
-            const data = await detail(req);
+            const data = await alldata(req);
             return res.status(data.status).json(data.data);
         default:
             return res.status(404).json({
