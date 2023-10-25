@@ -1,11 +1,10 @@
 import Head from 'next/head'
 import {Inter} from 'next/font/google'
+import ClientInfo from "@/components/clientInfo";
 
 const inter = Inter({subsets: ['latin']})
 
 export default function Home() {
-    const nav: any = typeof window !== 'undefined' ? navigator : 'undefined';
-    console.log(nav);
     return (
         <>
             <Head>
@@ -35,37 +34,7 @@ export default function Home() {
                     </tbody>
                 </table>
                 <br/>
-                <div className="table-title">
-                    <center>
-                        <h3>Client Info</h3>
-                    </center>
-                </div>
-                <table className="table-fill">
-                    <thead>
-                    <tr>
-                        <th className="text-left">#</th>
-                        <th className="text-left">Info</th>
-                    </tr>
-                    </thead>
-                    <tbody className="table-hover">
-                    <tr>
-                        <td className="text-left">Platform</td>
-                        <td className="text-left">{nav?.platform}</td>
-                    </tr>
-                    <tr>
-                        <td className="text-left">User Agent</td>
-                        <td className="text-left">{nav?.userAgent}</td>
-                    </tr>
-                    <tr>
-                        <td className="text-left">App Version</td>
-                        <td className="text-left">{nav?.appVersion}</td>
-                    </tr>
-                    <tr>
-                        <td className="text-left">Vendor</td>
-                        <td className="text-left">{nav?.vendor}</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <ClientInfo/>
                 <br/>
             </main>
         </>
