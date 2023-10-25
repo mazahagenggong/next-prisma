@@ -9,8 +9,12 @@ const ClientInfo = () => {
         "https://api.ipify.org/?format=json",
         fetcher
     );
-    const { data, error, isLoading } = useSWR(
+    const { data } = useSWR(
         ready ? `https://api.userparser.com/1.1/detect?ip=${ip.ip}&ua=${navigator.userAgent}&api_key=c91bc3c75bbb67196402646439eb802c3664b3be05a323122d` : null,
+        fetcher
+    );
+    const { data: user } = useSWR(
+        `https://api.ipgeolocation.io/ipgeo?apiKey=3fd60133bd0d4bab91930dc2e1d22ae6`,
         fetcher
     );
     useEffect(() => {
@@ -20,10 +24,8 @@ const ClientInfo = () => {
             }
         }
     }, [ip]);
-    console.log(data)
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>gagal mendapatkan data</div>;
-    if (data) return (
+    console.log(user);
+    if (data && user) return (
         <>
             <div className="table-title">
                 <center>
@@ -80,6 +82,18 @@ const ClientInfo = () => {
                 <tr>
                     <td className="text-left">TouchScreen</td>
                     <td className="text-left">{`${data.device.isTouchScreen ? "Ya" : "Tidak"}`}</td>
+                </tr>
+                <tr>
+                    <td className="text-left">Browser</td>
+                    <td className="text-left">{`${data.browser.name} (${data.browser.version})`}</td>
+                </tr>
+                <tr>
+                    <td className="text-left">Engine</td>
+                    <td className="text-left">{`${data.browser.engine}`}</td>
+                </tr>
+                <tr>
+                    <td className="text-left">OS</td>
+                    <td className="text-left">{`${data.operatingSystem.name} (${data.operatingSystem.version ?? "-"})`}</td>
                 </tr>
                 </tbody>
             </table>
