@@ -4,6 +4,13 @@ import prisma from "@/lib/prisma";
 import {admin} from "@/lib/auth";
 
 const alldata = async function (req: NextApiRequest){
+    const cek = await admin(req);
+    if (!cek.data.success) {
+        return {
+            status: cek.status,
+            data: cek.data
+        }
+    }
     const reqbody = req.body;
     const search_list = [
         'judul',
