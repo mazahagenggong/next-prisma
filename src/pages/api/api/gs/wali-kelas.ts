@@ -14,7 +14,7 @@ export default async function handler(
 
     switch (req.method) {
         case "POST" :
-            const data = await GSAPI(req, "semua");
+            const data = await GSAPI(req, "wali kelas");
             return res.status(data.status).json(data.data);
         default:
             return res.status(404).json({

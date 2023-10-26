@@ -122,7 +122,7 @@ export const datacard = async function (model: any, reqbody: any, search_list: s
         start = parseInt(reqbody.start);
     }
     if (typeof reqbody.length === 'undefined') {
-        length = 12;
+        length = 10;
     } else {
         length = parseInt(reqbody.length);
     }

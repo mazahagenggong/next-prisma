@@ -26,11 +26,11 @@ export function middleware(nextRequest: NextRequest) {
         if (nextRequest.method === 'OPTIONS') {
             const optionsResponse = new NextResponse(null, {status: 200})
             optionsResponse.headers.append('Access-Control-Allow-Origin', "*")
-            optionsResponse.headers.append('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT')
+            optionsResponse.headers.append('Access-Control-Allow-Methods', 'GET, DELETE, PATCH, POST, PUT');
             optionsResponse.headers.append(
                 'Access-Control-Allow-Headers',
                 'Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-            )
+            );
             return optionsResponse
         }
         return res
