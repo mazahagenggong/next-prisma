@@ -7,6 +7,7 @@ const allowedOrigins = [
     'https://mazainulhasan1.sch.id',
     'https://www.mazainulhasan1.sch.id',
     'https://web-ma-nextjs.vercel.app',
+    'https://web-panel-madrasah.vercel.app'
 ];
 
 export function middleware(nextRequest: NextRequest) {
