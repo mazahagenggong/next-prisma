@@ -12,7 +12,7 @@ const allowedOrigins = [
 
 export function middleware(nextRequest: NextRequest) {
     const res = NextResponse.next()
-    if (nextRequest.nextUrl.pathname !== '/api/auth/detail') {
+    if (nextRequest.nextUrl.pathname !== '/api/auth/detail' && nextRequest.nextUrl.pathname !== '/api/auth/signin') {
         const origin = nextRequest.headers.get('Origin')
         if (!origin) {
             console.log(`Direct access is denied !!!`);
