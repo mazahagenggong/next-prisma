@@ -29,13 +29,13 @@
     "@types/bcryptjs": "^2.4.4",
     "@types/cors": "^2.8.14",
     "@types/jsonwebtoken": "^9.0.3",
-    "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/node": "^20.8.9",
+    "@types/react": "^18.2.33",
     "@types/react-dom": "^18",
     "@types/validator": "^13.11.5",
     "eslint": "^8",
     "eslint-config-next": "13.5.4",
     "prisma": "^5.4.1",
-    "typescript": "^5"
+    "typescript": "^5.2.2"
   }
 }
