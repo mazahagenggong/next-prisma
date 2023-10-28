@@ -7,7 +7,7 @@ const signIn = async function (body: any) {
         const {username, password, remember} = body;
         if (!username || !password) {
             return {
-                status: 200,
+                status: 403,
                 data: {
                     success: false,
                     message: "Username dan password harus diisi"
@@ -19,7 +19,7 @@ const signIn = async function (body: any) {
         });
         if (!user) {
             return {
-                status: 200,
+                status: 403,
                 data: {
                     success: false,
                     message: 'Username atau password salah'
