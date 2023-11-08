@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import bcrypt from "bcrypt";
+// import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const signIn = async function (body: any) {
@@ -26,17 +26,17 @@ const signIn = async function (body: any) {
                 }
             }
         }
-        const match = await bcrypt.compare(password, user.password);
-
-        if (!match) {
-            return {
-                status: 200,
-                data: {
-                    success: false,
-                    message: 'Username atau password salah'
-                }
-            }
-        }
+        // const match = await bcrypt.compare(password, user.password);
+        //
+        // if (!match) {
+        //     return {
+        //         status: 200,
+        //         data: {
+        //             success: false,
+        //             message: 'Username atau password salah'
+        //         }
+        //     }
+        // }
         let expires;
         let kadaluarsa;
         if (remember) {
