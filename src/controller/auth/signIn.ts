@@ -26,7 +26,6 @@ const signIn = async function (body: any) {
                 }
             }
         }
-        // @ts-ignore
         const match = await bcrypt.compare(password, user.password);
 
         if (!match) {
