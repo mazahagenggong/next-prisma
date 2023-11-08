@@ -2,6 +2,7 @@ import {NextApiRequest} from "next";
 import prisma from "@/lib/prisma";
 
 export const SlugAPI = async function (req: NextApiRequest) {
+    console.log(req.query)
     const slug = req.query.slug as string;
     try {
         const post = await prisma.posts.findFirst({

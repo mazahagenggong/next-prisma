@@ -40,6 +40,7 @@ const tambah = async function (req: NextApiRequest) {
         }
     }
     body.author = cek.data.data.nama;
+    delete body.time;
 
     try {
         const cek_slug = await prisma.posts.findMany({
@@ -68,6 +69,7 @@ const tambah = async function (req: NextApiRequest) {
             }
         }
     } catch (e: any) {
+        console.log(e);
         return {
             status: 500,
             data: {

@@ -8,12 +8,12 @@ export default async function handler(
     res: NextApiResponse
 ) {
     const cors = Cors({
-        methods: ['POST'],
+        methods: ['GET'],
     });
     await runMiddleware(req, res, cors);
 
     switch (req.method) {
-        case "POST" :
+        case "GET" :
             const data = await SlugAPI(req);
             if (data.data.success) {
                 return res.status(data.status).json(data.data.data);
