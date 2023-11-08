@@ -3,7 +3,7 @@ import {auth} from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import validator from "validator";
 import isLength = validator.isLength;
-import bcrypt from "bcrypt";
+import {AES, enc} from "crypto-js";
 
 const password = async function (req: NextApiRequest) {
     const cek:any = await auth(req);
@@ -100,17 +100,19 @@ const password = async function (req: NextApiRequest) {
                 }
             };
         }
-        const match = await bcrypt.compare(password, user_data.password);
-        if (!match) {
+        const secret = process.env.JWT_SECRET ?? '';
+        const rp = AES.decrypt(user_data.password, secret).toString(enc.Utf8);
+        if (password !== rp) {
             return {
                 status: 400,
                 data: {
                     success: false,
-                    message: 'Password lama tidak sesuai'
+                    message: 'Password lama salah'
                 }
             };
         }
-        const newpassword = await bcrypt.hash(new_password, 16);
+        const newpassword = AES.encrypt(new_password, secret).toString();
+
         await prisma.users.update({
             where: {id: user_id},
             data: {

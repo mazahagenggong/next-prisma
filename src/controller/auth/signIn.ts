@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import {AES, enc} from "crypto-js";
 
 const signIn = async function (body: any) {
     try {
@@ -26,9 +27,10 @@ const signIn = async function (body: any) {
                 }
             }
         }
-        const match = await bcrypt.compare(password, user.password);
+        const secret = process.env.JWT_SECRET ?? '';
+        const rp = AES.decrypt(user.password, secret).toString(enc.Utf8);
 
-        if (!match) {
+        if (password !== rp) {
             return {
                 status: 200,
                 data: {
